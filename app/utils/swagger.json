@@ -1,0 +1,607 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RestApi",
+    "version": "1.0.0",
+    "description": "API documentation for user functionality in the ETHERS project."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/api/v1/superAdmin/login": {
+      "post": {
+        "summary": "SuperAdmin Login",
+        "description": "Endpoint for user log in.",
+        "requestBody": {
+          "description": "User login credentials.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "private_Key": {
+                    "type": "string",
+                    "example": "0xbdfc30cda79c31aef9bb1502bc98054dcc9d05b2d6602d1c2c19e7665837a20c"
+                  }
+                },
+                "required": ["private_key"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "404":{
+            "description":"User not Found."
+          },
+          "500":
+          {
+            "description":"Server side error"
+          }
+          
+        }
+      }
+    },
+    "/api/v1/superAdmin/signUp": {
+      "post": {
+        "summary": "Register SuperAdmin",
+        "description": "Endpoint for registering a new user.",
+        "requestBody": {
+          "description": "SuperAdmin registration details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "superAdmin Name"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "mailto:user@example.com"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "superAdmin"
+                  }
+                
+                },
+                "required": ["name", "email", "role"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User registered successfully."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+         
+          "409": {
+            "description": "User already exists."
+          },
+          "500": {
+            "description": "Server side Error."
+          }
+        }
+      }
+    },
+    "/api/v1/superAdmin/logOut": {
+      "get": {
+        "summary": "SuperAdmin LogOut",
+        "description": "Endpoint for user to log out.",
+        "responses": {
+          "200": {
+            "description": "SuperAdmin logged out successfully."
+          },
+          "500": {
+            "description": "Something went wrong."
+          }
+        }
+      }
+    },
+    "/api/v1/superAdmin/createCompany": {
+      "post": {
+        "summary": "Add Company",
+        "description": "Endpoint for creating a new company.",
+        "requestBody": {
+          "description": "Company details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_name": {
+                    "type": "string",
+                    "example": "oodles_2 technology"
+                  },
+                  "company_email": {
+                    "type": "string",
+                    "example": "oodles_2.mail@oodles.io"
+                  },
+                  "company_address": {
+                    "type": "string",
+                    "example": "welldone park"
+                  },
+                  "company_logo": {
+                    "type": "string",
+                    "example": "Company logo"
+                  },
+                  "company_description":{
+                    "type":"string",
+                    "example":"company description"
+                  }
+                },
+                "required": ["company_name", "company_email","company_address","company_address","company_logo","company_description"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Company created successfully."
+          },
+          "400": {
+            "description": "Bad request."
+          }
+        }
+      }
+    },
+
+    "/api/v1/superAdmin/find":{
+      "get":{
+        "summary":"find all admins",
+        "description":"Endpoint for finding all admin details which created by logged in super Admin",
+        "responses":{
+          "200": {
+            "description": "Admins Details."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/api/v1/superAdmin/createAdmin": {
+      "post": {
+        "summary": "Add Admin",
+        "description": "Endpoint for creating a new admin.",
+        "requestBody": {
+          "description": "Admin details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "example": "Admin Name"
+                  },
+                  "middle_name": {
+                    "type": "string",
+                    "example": "admin middle name"
+                  },
+                  "last_name":{
+                    "type":"string",
+                    "example":"admin lastName"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "admin@gmail.com"
+                  },
+                  "company_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "role":{
+                    "type":"string",
+                    "example":"admin"
+                  }
+                },
+                "required": ["company_id","role"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Admin created successfully."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/api/v1/superAdmin/updateAdmin": {
+      "put": {
+        "summary": "Update Admin",
+        "description": "Endpoint for  updating employee.",
+        "requestBody": {
+          "description": "Employee details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "admin_private_key":{
+                      "type":"string",
+                      "example":"0x717a04fd6995e9ee77ef199f10bce5c1dec251e28c24b5650dd71abce4ff6f58"
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "example": "Admin Name"
+                  },
+                  "middle_name": {
+                    "type": "string",
+                    "example": "admin middle name"
+                  },
+                  "last_name":{
+                    "type":"string",
+                    "example":"admin lastName"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "admin@gmail.com"
+                  },
+                  "company_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "role":{
+                    "type":"string",
+                    "example":"admin"
+                  }
+                },
+                "required": ["company_id","role"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Admin updated successfully."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/api/v1/superAdmin/updateCompany": {
+      "put": {
+        "summary": "Update Company Details",
+        "description": "Endpoint for updating employee information.",
+        "requestBody": {
+          "description": "Updated employee details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_private_key":{
+                      "type":"string",
+                      "example":"0xe0e30610c574817a6bbe70210cc79a4e11afc54385a01d0ea3c63ee9d425f3b0"
+                  },
+                  "company_name": {
+                    "type": "string",
+                    "example": "Admin Name"
+                  },
+                  "company_email": {
+                    "type": "string",
+                    "example": "company@gmail.com"
+                  },
+                  "company_logo":{
+                    "type":"string",
+                    "example":"company_124"
+                  },
+                  "company_address": {
+                    "type": "string",
+                    "example": "abcd"
+                  },
+                  "company_description": {
+                    "type": "string",
+                    "example": "sdfsffdsdsffd"
+                  }
+                  
+                },
+                "required": ["company_private_key"]
+              }
+                
+              }
+            }
+          }
+        ,
+        "responses": {
+          "200": {
+            "description": "company information updated successfully."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/api/v1/user/login":{
+       "post":{
+        "summary":"user  login",
+        "description":"Endpoint for loging users(admin or employee)",
+        "requestBody":{
+          "description":"User login credentials.",
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "admin_private_key":{
+                    "type":"string",
+                    "example":"0x717a04fd6995e9ee77ef199f10bce5c1dec251e28c24b5650dd71abce4ff6f58"
+                  
+                  }
+                },
+                "required": ["admin_private_key"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "404":{
+            "description":"User not Found."
+          },
+          "500":
+          {
+            "description":"Server side error"
+          }
+          
+        }
+       }
+    },
+
+    "/api/v1/user/logOut": {
+      "get": {
+        "summary": "SuperAdmin LogOut",
+        "description": "Endpoint for user to log out.",
+        "responses": {
+          "200": {
+            "description": "SuperAdmin logged out successfully."
+          },
+          "500": {
+            "description": "Something went wrong."
+          }
+        }
+      }
+    }
+ ,
+ "/api/v1/user/createEmployee":{
+  "post":{
+      "summary":"create Employe",
+      "description":"Endpoint for  creating employee.",
+      "requestBody":{
+        "description":"employee creating api",
+        "content":{
+           "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "company_id":
+                  {
+                    "type":"string",
+                    "example":1
+                },
+                "role":{
+                  "type":"user role",
+                  "example":"emp"
+                }
+                },
+                "required":["company_id","role"]
+              }
+           }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "user created successfully."
+        },
+        "400": {
+          "description": "Bad request."
+        },
+        "401": {
+          "description": "Unauthorized."
+        },
+        "500": {
+          "description": "Internal Server Error."
+        }
+      }
+  }
+ },
+ "/api/v1/user/deleteEmployee/{id}": {
+  "delete": {
+    "summary": "Delete user by ID",
+    "description": "Endpoint for deleting a user by ID.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "User ID",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "User deleted successfully."
+      },
+      "400": {
+        "description": "Bad request."
+      },
+      "401": {
+        "description": "Unauthorized."
+      },
+      "500": {
+        "description": "Internal Server Error."
+      }
+    }
+  }
+},
+
+"/api/v1/user/findEmployee/{id}":{
+  "get":{
+    "summary":"find user by id",
+    "description":"Endpoint for finding user by id.",
+    "parameters":[
+      {
+        "name":"id",
+        "in":"path",
+        "description":"user ID",
+        "required":true,
+        "schema":{
+          "type":"integer",
+          "format":"int64"
+        }
+      }
+    ],
+    "responses":{
+      "200": {
+        "description": "User find successfully."
+      },
+      "400": {
+        "description": "Bad request."
+      },
+      "401": {
+        "description": "Unauthorized."
+      },
+      "500": {
+        "description": "Internal Server Error."
+      }
+    }
+  }
+},
+
+"/api/v1/user/findAllEmployee":{
+       "get":{
+         "summary":"find all emlpoyee",
+         "description":"Endpoint for  finding all users.",
+         "responses":{
+          "200": {
+            "description": "User find successfully."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+         }
+       }
+}
+,
+"/api/v1/user/updateEmployee":{
+  "put":{
+    "summary":"update Employee",
+    "description":"Endpoint for update employee.",
+    "requestBody":{
+      "description":"for updating Employee",
+      "content":{
+        "application/json":{
+          "schema":{
+            "type":"object",
+            "properties":{
+              "employee_private_key":{
+                "type":"string",
+                "example":"0x0676f64388600e4beeedb8706112addc8f5149f454d1e0c7afd654483cbe05e9"
+        
+              },
+              "first_name": {
+                "type": "string",
+                "example": "employee Name"
+              },
+              "middle_name": {
+                "type": "string",
+                "example": "employee middle name"
+              },
+              "last_name":{
+                "type":"string",
+                "example":"employee  lastName"
+              },
+              "email": {
+                "type": "string",
+                "example": "admin@gmail.com"
+              }
+              
+            },
+            "required":["employee_private_key"]
+          }
+        }
+      }
+    },
+    "responses":{
+      "200": {
+        "description": "User updated successfully."
+      },
+      "400": {
+        "description": "Bad request."
+      },
+      "401": {
+        "description": "Unauthorized."
+      },
+      "500": {
+        "description": "Internal Server Error."
+      }
+    }
+  }
+}
+
+
+
+  }
+}
+  
+  
+
